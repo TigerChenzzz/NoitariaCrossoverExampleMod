@@ -1,0 +1,6 @@
+Items: {
+	ExampleModule: {
+		DisplayName: 示例模块
+		Tooltip: 示范用
+	}
+}

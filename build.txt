@@ -1,0 +1,3 @@
+displayName = Noitaria Crossover Example Mod
+author = Tiger
+version = 0.1

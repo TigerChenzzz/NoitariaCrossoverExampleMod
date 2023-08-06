@@ -1,0 +1,6 @@
+Items: {
+	ExampleModule: {
+		DisplayName: Example Module
+		Tooltip: Use for example
+	}
+}
