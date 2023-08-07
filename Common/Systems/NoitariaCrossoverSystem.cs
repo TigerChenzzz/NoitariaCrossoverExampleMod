@@ -65,6 +65,7 @@ internal class NoitariaCrossoverSystem : ModSystem {
     /// </param>
     /// <returns>ModuleID, 若添加失败, 则是-1</returns>
     public static int AddExtraModule(int itemID, Dictionary<string, object> modifiers = null) {
+        //其实Call的第一个参数直接用字符串"AddExtraModule"也可以
         return (int)Noitaria.Call(ModCallID.AddExtraModule, itemID, modifiers);
     }
     public static int ModuleIDToItemID(int moduleID) {
