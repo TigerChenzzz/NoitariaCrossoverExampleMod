@@ -34,9 +34,6 @@ internal class ExampleModule : ModItem {
     private int number = 100;
     private int GetNumber(int num) {
         number = Math.Max(number - num, 0);
-        if (number > 0) {
-            number -= 1;
-        }
         return number;
     }
     public static void ShootModify(Item self, Item wand, object state, Entity entity, IEntitySource source, ref Vector2 position, ref float rotation, int num) {
