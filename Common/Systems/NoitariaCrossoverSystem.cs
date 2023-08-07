@@ -60,12 +60,12 @@ internal class NoitariaCrossoverSystem : ModSystem {
     /// <para/>"triggerType"    , int  值, 代表触发类型, 一般不填, 如果填1代表消失触发, 2代表受击触发,3代表1+2
     /// <para/>"triggerMaxDraw" , int  值, 代表触发中的最大抽数, -1(默认值)代表无限, 只有triggerType非0时才有效
     /// <para/>
-    /// <para/>"extraBehavior"  , <see cref="ExtraBehaviorDelegate"/> 值
-    /// <para/>"shootModify"    , <see cref="ShootModifyDelegate"/> 值
+    /// <para/>"extraBehavior"  , <see cref="ExtraBehaviorDelegate"/> 值, 直接是对应的委托也可以
+    /// <para/>"shootModify"    , <see cref="ShootModifyDelegate"/> 值, 直接是对应的委托也可以
     /// </param>
     /// <returns>ModuleID, 若添加失败, 则是-1</returns>
     public static int AddExtraModule(int itemID, Dictionary<string, object> modifiers = null) {
-        //其实Call的第一个参数直接用字符串"AddExtraModule"也可以
+        //其实Call的第一个参数直接用字符串"AddExtraModule"或者数字1也可以
         return (int)Noitaria.Call(ModCallID.AddExtraModule, itemID, modifiers);
     }
     public static int ModuleIDToItemID(int moduleID) {
@@ -101,22 +101,29 @@ internal class NoitariaCrossoverSystem : ModSystem {
     /// <summary>
     /// 在成功地抽出此模块时执行
     /// </summary>
+    /// <param name="self">自己</param>
     /// <param name="wand">发射所使用的法杖(物品)</param>
     /// <param name="state">施法状态, 不知道可以不管</param>
     /// <param name="entity">发射的实体, 有可能为<see cref="Player"/>(玩家), <see cref="Projectile"/>(灵化魔杖), 或者<see cref="NPC"/>(暂时还只能作弊调出来的野生杖灵)</param>
     /// <param name="pars">不知道就别管</param>
-    /// <returns>实际返回值为<see cref="DrawReturn"/>类型， 一般返回0就行了</returns>
-    public delegate int ExtraBehaviorDelegate(Item wand, object state, Entity entity, object pars);
+    /// <returns>
+    /// <para/>实际返回值为<see cref="DrawReturn"/>类型， 一般返回0就行了
+    /// <para/>返回1(<see cref="DrawReturn.CardFail"/>)可以让此模块不起作用, 比如一些限定条件不满足等
+    /// <para/>但这样仍然会占用施法次数并消耗魔法
+    /// <para/>返回8(<see cref="DrawReturn.DrawOutCount"/>)会强制结束这次抽取
+    /// </returns>
+    public delegate int ExtraBehaviorDelegate(Item self, Item wand, object state, Entity entity, object pars);
     /// <summary>
     /// 在发射时执行, 包括触发时
     /// </summary>
+    /// <param name="self">自己</param>
     /// <param name="state">施法状态</param>
     /// <param name="entity">发射的实体</param>
     /// <param name="source">源</param>
     /// <param name="position">发射的位置</param>
     /// <param name="rotation">发射的旋转角</param>
     /// <param name="num">有多少个此模块起作用, 如果不清楚这个是什么, 可以把整个函数用 for(int i = 0; num > i; ++i) 包起来</param>//小于号要用&lt;转义, 所以就用大于号了
-    public delegate void ShootModifyDelegate(object state, Entity entity, IEntitySource source, ref Vector2 position, ref float rotation, int num);
+    public delegate void ShootModifyDelegate(Item self, Item wand, object state, Entity entity, IEntitySource source, ref Vector2 position, ref float rotation, int num);
     [Flags]
     public enum DrawReturn
     {
