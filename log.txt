@@ -1,0 +1,4 @@
+v0.1
+-添加了实例模块(ModItem), 它的作用为发射一支木箭
+-添加了NoitariaCrossoverSystem, 这里展示了如何添加一个模块, 以及通过模块id获得物品ID(itemID), 模块id可以通过开启Noitaria个人设置中的Debug查看
+-目前仅新逻辑为完全适配, 调试请在新逻辑下进行

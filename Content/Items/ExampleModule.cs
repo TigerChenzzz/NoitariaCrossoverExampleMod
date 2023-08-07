@@ -1,4 +1,5 @@
 ﻿using Terraria.GameContent.Creative;
+using static NoitariaCrossoverExampleMod.Common.Systems.NoitariaCrossoverSystem;
 
 namespace NoitariaCrossoverExampleMod.Content.Items;
 internal class ExampleModule : ModItem {
@@ -20,4 +21,14 @@ internal class ExampleModule : ModItem {
             .AddTile(ModContent.Find<ModTile>("Noitaria", "铭刻台").Type)
             .Register();
     }
+    public static Dictionary<string, object> Modifiers => new() {
+        { "type", CardType.Projectile },
+        { "manaCost", 20 },
+
+        { "useTimeAdd", 20 },
+        { "shoot", (int)ProjectileID.WoodenArrowFriendly },
+        { "damage", 10 },
+        { "shootSpeed", 6 },
+        { "critAdd", 4 },
+    };
 }

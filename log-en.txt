@@ -1,0 +1,4 @@
+v0.1
+-Add Example Module (ModItem), it could shoot a wooden arrow when in a Noitaria wand
+-Add NoitariaCrossoverSystem, here shows how to add a module to Noitaria, and to get item id by module id, module id could be checked through Debug in configuation
+-Only new logic could fully support this, please debug in new logic

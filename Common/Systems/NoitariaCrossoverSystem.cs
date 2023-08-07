@@ -18,16 +18,7 @@ internal class NoitariaCrossoverSystem : ModSystem {
     }
     public override void PostSetupContent() {
         if(Noitaria != null) {
-            AddExtraModule(ModContent.ItemType<ExampleModule>(), new Dictionary<string, object>() {
-                { "type", CardType.Projectile },
-                { "manaCost", 20 },
-
-                { "useTimeAdd", 20 },
-                { "shoot", (int)ProjectileID.WoodenArrowFriendly },
-                { "damage", 10 },
-                { "shootSpeed", 6 },
-                { "critAdd", 4 },
-            });
+            AddExtraModule(ModContent.ItemType<ExampleModule>(), ExampleModule.Modifiers);
         }
     }
     
@@ -123,7 +114,7 @@ internal class NoitariaCrossoverSystem : ModSystem {
     /// <param name="source">源</param>
     /// <param name="position">发射的位置</param>
     /// <param name="rotation">发射的旋转角</param>
-    /// <param name="num">有多少个此模块起作用, 如果不清楚这个是什么, 可以把整个函数用 for(int i = 0; i < num; ++i) 包起来</param>
+    /// <param name="num">有多少个此模块起作用, 如果不清楚这个是什么, 可以把整个函数用 for(int i = 0; num > i; ++i) 包起来</param>//小于号要用&lt;转义, 所以就用大于号了
     public delegate void ShootModifyDelegate(object state, Entity entity, IEntitySource source, ref Vector2 position, ref float rotation, int num);
     [Flags]
     public enum DrawReturn
